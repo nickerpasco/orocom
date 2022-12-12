@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clCoordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+
+    tools:context=".sanna.omorocom.AsistenciaActivity">
+
+
+
+<androidx.appcompat.widget.AppCompatImageView
+    android:layout_width="match_parent"
+    android:layout_height="123dp"
+    android:layout_marginTop="-35dp"
+    android:paddingLeft="-1.5dp"
+    android:scaleType="centerCrop"
+    android:backgroundTint="@color/sanna"
+    android:tint="@color/sanna"
+    app:srcCompat="@drawable/toolbar__ok" />
+
+<ImageView
+    android:id="@+id/BtnRegresar"
+    android:layout_width="50dp"
+    android:layout_height="56dp"
+    android:layout_alignParentLeft="true"
+    android:padding="8dp"
+    android:src="@drawable/ic_baseline_arrow_back_24"
+    app:tint="@color/white" />
+<ImageView
+    android:id="@+id/BtnCheck"
+    android:layout_width="50dp"
+    android:layout_height="56dp"
+    android:layout_alignParentRight="true"
+    android:padding="8dp"
+    android:src="@drawable/ic_baseline_check_24"
+    app:tint="@color/white" />
+
+<androidx.appcompat.widget.AppCompatImageView
+    android:layout_width="43dp"
+    android:layout_height="55dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="@dimen/margintoplogo"
+    android:scaleType="centerCrop"
+    app:srcCompat="@drawable/ic_orocom_solo_solo" />
+
+
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="85dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/default_font_bold"
+                android:gravity="center"
+                android:text="Marcar Asientecia"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/proxima_nova_bold"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:text="Fecha y Hora"
+                        android:textSize="14.0sp" />
+
+                    <EditText
+
+                        android:id="@+id/TxtFechaHora"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/size_40"
+                        android:layout_marginTop="@dimen/size_10"
+                        android:fontFamily="@font/proxima_nova_bold"
+                        android:background="@drawable/background_border_round"
+                        android:gravity="center_vertical"
+                        android:hint="Fecha Hora"
+                        android:enabled="false"
+
+                        android:paddingLeft="@dimen/size_20"
+                        android:textSize="@dimen/text10" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:fontFamily="@font/proxima_nova_bold"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:text="Tipo Asistencia"
+                        android:textColor="@color/black"
+                        android:textSize="14.0sp" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10.0dip"
+                        android:background="@drawable/background_border_round"
+
+                        android:fontFamily="@font/default_font_regular"
+                        android:includeFontPadding="false"
+                        android:inputType="text"
+                        android:padding="5.0dip"
+                        android:textSize="15.0sp">
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/CboTipoAsistencia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:fontFamily="@font/proxima_nova_bold"
+                            android:hint="Seleccione"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            app:ms_hint_color="@color/black">
+
+                        </com.jaredrummler.materialspinner.MaterialSpinner>
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_cambiar_contrasenia.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_home.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_inicar_login.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_lista_funciones_vitales.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_lista_pacientes.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_pacientes.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_recuperar_contrasenia.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_registro.xml" value="0.33" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_registro_funciones_vitales.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_registro_paciente.xml" value="0.5" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/activity_splash.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/custom_tab.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/fragment_dashboard.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/fragment_first.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/fragment_second.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/pac_list.xml" value="0.67" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/row_list.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/view_item_funciones.xml" value="0.30364583333333334" />
+        <entry key="..\:/Ciclo 2021- 2/Pruebas de Software/nuevo/ClinicaSanna/app/src/main/res/layout/view_item_paciente.xml" value="0.5" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/drawable/ic_funcion_vital_in.xml" value="0.3828125" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/drawable/ic_funcion_vital_out.xml" value="0.3828125" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/drawable/ic_round_add_24.xml" value="0.3828125" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_cambiar_contrasenia.xml" value="0.36102564102564105" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_home.xml" value="0.2630208333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_inicar_login.xml" value="0.2630208333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_lista_funciones_vitales.xml" value="0.33" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_listado_funciones_vitales.xml" value="0.2630208333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_listados.xml" value="0.26197916666666665" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_main.xml" value="0.36102564102564105" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_recuperar_contrasenia.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_registro.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_registro_funciones_vitales.xml" value="0.25743589743589745" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_registro_paciente.xml" value="0.36666666666666664" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/activity_splash.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/custom_tab.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/fragment_dashboard.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/fragment_first.xml" value="0.36102564102564105" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/fragment_lista_funcion_vitales.xml" value="0.25" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/fragment_listado_pacientes.xml" value="0.2630208333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/fragment_second.xml" value="0.20520833333333333" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/row_list.xml" value="0.24583333333333332" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/layout/view_item_funciones.xml" value="1.1" />
+        <entry key="..\:/Proyectos/Android/ClinicaSannaAct/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2630208333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

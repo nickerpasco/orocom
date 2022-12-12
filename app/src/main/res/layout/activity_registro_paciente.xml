@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sanna.sanna.RegistroPacienteActivity">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="#17212f"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="#209a4b"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/atrasPrioridad"
+                android:layout_width="37dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="104dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" /> />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="110dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sanna"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/BtnPacGuardar"
+                android:layout_width="36dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_baseline_check_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:id="@+id/SpTipoDocPNuevo"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginTop="@dimen/size_20"
+                            android:layout_marginBottom="@dimen/size_15"
+                            android:src="@drawable/ic_funcion_vital_in"
+                            app:srcCompat="@drawable/ic_medico"
+                            app:tint="@color/sanna" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:text="Registro de Pacientes"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/colorGray"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            tools:ignore="RtlCompat" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingLeft="@dimen/size_30"
+                            android:paddingRight="@dimen/size_30"
+                            android:paddingBottom="@dimen/size_30">
+
+
+                            <EditText
+
+                                android:id="@+id/txtPacDoc"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Nro. de Documento"
+                                android:inputType="number"
+                                android:maxLength="12"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+                            <EditText
+
+                                android:id="@+id/txtPacNom"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Nombres y Apellidos"
+                                android:digits="@string/abc_numbers"
+                                android:inputType="textCapSentences"
+                                android:maxLength="50"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:text="Edad"
+                                android:textSize="@dimen/text10" />
+
+                            <EditText
+
+                                android:id="@+id/txtPacEdad"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_10"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Edad"
+                                android:inputType="number"
+                                android:maxLength="3"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:text="Sexo"
+                                android:textSize="@dimen/text10" />
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_5"
+                                android:background="@drawable/background_border_round"
+                                android:padding="@dimen/size_2">
+
+                                <com.jaredrummler.materialspinner.MaterialSpinner
+
+                                    android:id="@+id/SpPacSexo"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:hint="Sexo"
+                                    android:textSize="@dimen/text10" />
+                            </LinearLayout>
+
+
+                            <EditText
+
+                                android:id="@+id/txtPacDir"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Dirección"
+                                android:digits="@string/abc_numbers"
+                                android:inputType="textCapSentences"
+                                android:maxLength="60"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+                            <EditText
+                                android:id="@+id/txtPacCorreo"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Email"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="100"
+
+                                android:digits="@string/abc_numbersarroba"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+                            <EditText
+                                android:id="@+id/txtPacCel"
+                                android:layout_width="fill_parent"
+                                android:layout_height="@dimen/size_40"
+                                android:layout_marginTop="@dimen/size_20"
+                                android:background="@drawable/background_border_round"
+                                android:gravity="center_vertical"
+                                android:hint="Celular"
+                                android:inputType="number"
+                                android:maxLength="9"
+                                android:paddingLeft="@dimen/size_20"
+                                android:textSize="@dimen/text10" />
+
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/asistencia_closs"
+            android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+            android:title="Asistencia" />
+
+        <item
+
+            android:icon="@drawable/ic_baseline_file_copy_24"
+            android:title="Solicitudes" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:visible="false"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:visible="false"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+    </group>
+
+
+    <item
+
+        android:title="Documentos">
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/PedidosReporte"
+                    android:icon="@drawable/ic_baseline_view_list_24"
+                    android:title="Boleta" />
+
+                <item
+                    android:id="@+id/Liquidacionxguia"
+                    android:icon="@drawable/ic_baseline_view_list_24"
+                    android:title="Cts" />
+                <item
+                    android:id="@+id/ventadelDia"
+                    android:icon="@drawable/ic_baseline_view_list_24"
+                    android:title="Retención" />
+
+
+            </group>
+
+
+
+
+        </menu>
+
+        <item android:title="Configuración">
+            <menu>
+
+
+
+                <group android:checkableBehavior="single">
+
+
+
+                    <item
+                        android:id="@+id/BtnCerrarSesion"
+                        android:icon="@drawable/ic_baseline_exit_to_app_24"
+                        android:title="Cerrar Sesión" />
+
+                </group>
+
+
+
+            </menu>
+        </item>
+    </item>
+</menu>

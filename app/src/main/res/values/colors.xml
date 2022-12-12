@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">@color/sanna</color>
+    <color name="purple_500">@color/sanna</color>
+    <color name="purple_700">@color/sanna</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="sanna">#649c33</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="green">#ff82bd41</color>
+    <color name="blue.dark">#ff20386d</color>
+    <color name="blue">#ff1e376d</color>
+    <color name="transparente">#CCFF0000</color>
+    <color name="colorPrimary">#4995C8</color>
+    <color name="colorPrimaryDark">#ff1e376d</color>
+    <color name="red">#D62E2E</color>
+    <color name="warning">#F48536</color>
+    <color name="whitecard">#FCFAFA</color>
+    <color name="contentDividerLine">#e0e0e0</color>
+    <color name="gray">#7e7e7e</color>
+
+
+    <color name="colorGray">#495C67</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorOrange">#F68159</color>
+    <color name="colorLightGray">#a6abae</color>
+
+    <color name="colorBackroundWhite">#f0f2ea</color>
+    <color name="background_gradient_start">#000000</color>
+    <color name="negritoorocom">#252121</color>
+    <color name="background_gradient_end">#DDDDDD</color>
+    <color name="fastlane_background">#0096a6</color>
+    <color name="search_opaque">#ffaa3f</color>
+    <color name="selected_background">#ffaa3f</color>
+    <color name="default_background">#3d3d3d</color>
+</resources>
