@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,12 +18,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import royal.spring.clinicasanna.R;
+import royal.spring.clinicasanna.sanna.omorocom.APIUtils;
 import royal.spring.clinicasanna.sanna.omorocom.Menu_Principal_Padre;
+import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
+import royal.spring.clinicasanna.sanna.omorocom.ui.MensajesGenericos;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ModelError;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
+import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
 import royal.spring.clinicasanna.sanna.sanna.clases.Usuario;
 import royal.spring.clinicasanna.sanna.sanna.ui.MainActivity;
 import royal.spring.clinicasanna.sanna.sanna.ui.NotificaionActivity;
@@ -32,6 +44,9 @@ public class InicarLoginActivity extends AppCompatActivity {
     Button button;
     TextView TvRegitro,textView4,textView52;
     EditText editText,editText2;
+
+    UsuarioService usuarioService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +59,7 @@ public class InicarLoginActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText);
         editText2 = findViewById(R.id.editText2);
 
+        usuarioService = APIUtils.getUsuarioService();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -74,13 +90,7 @@ public class InicarLoginActivity extends AppCompatActivity {
 
 
 
-
-                if(usuario.equals("admin") && pass.equals("admin")){
-                    startActivity(new Intent(InicarLoginActivity.this, Menu_Principal_Padre.class));
-                }else{
-                    Toast.makeText(InicarLoginActivity.this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            Ingresar();
 
 
 
@@ -121,6 +131,67 @@ public class InicarLoginActivity extends AppCompatActivity {
 
     }
 
+    private void Ingresar() {
+
+       // Toast.makeText(this, "Validando usuario en línea..", Toast.LENGTH_SHORT).show();
+        ProgressBarGenerico.LoadProgress(this);
+
+        String usuario = editText.getText().toString();
+        String pass = editText2.getText().toString();
+       LoginResponse request = new LoginResponse();
+        request.setUsuario(usuario);
+        request.setClave(pass);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(request);
+
+        Call<LoginResponse> call = usuarioService.SendSesionLogin(request);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    ProgressBarGenerico.HideProgreess();
+
+                    if (response.body().getLstErrores().size() == 0) {
+
+                        startActivity(new Intent(InicarLoginActivity.this, Menu_Principal_Padre.class));
+
+
+                    } else {
+
+                        ModelError error  = response.body().getLstErrores().get(0);
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", error.getMensajeError(), InicarLoginActivity.this);
+
+                    }
+
+
+                }else{
+                    ProgressBarGenerico.HideProgreess();
+
+                    if(response.code()==404){
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 404", InicarLoginActivity.this);
+
+                    }
+
+                    if(response.code()==500){
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 500", InicarLoginActivity.this);
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+                MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", t.getMessage(), InicarLoginActivity.this);
+
+                ProgressBarGenerico.HideProgreess();
+
+            }
+        });
+    }
 
 
     @Override

@@ -3,6 +3,7 @@ package royal.spring.clinicasanna.sanna.omorocom;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +25,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import royal.spring.clinicasanna.R;
+import royal.spring.clinicasanna.sanna.omorocom.ui.AsistenciaDiariaMarcas;
+import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
+import royal.spring.clinicasanna.sanna.omorocom.ui.MensajesGenericos;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ModelError;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
+import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
+import royal.spring.clinicasanna.sanna.omorocom.utils.FuncionesPrincipales;
+import royal.spring.clinicasanna.sanna.sanna.InicarLoginActivity;
 
 public class AsistenciaActivity extends AppCompatActivity implements Runnable {
 
@@ -33,7 +46,9 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
     MaterialSpinner CboTipoAsistencia ;
     ImageView BtnRegresar ;
     ImageView BtnCheck ;
+    UsuarioService usuarioService;
 
+    //private GpsTracker gpsTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +60,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
         BtnRegresar = findViewById(R.id.BtnRegresar);
         BtnCheck = findViewById(R.id.BtnCheck);
 
+        usuarioService = APIUtils.getUsuarioService();
         BtnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +76,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
             public void onClick(View v) {
                 Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_tv);
                 BtnCheck.startAnimation(animFadein);
-
+                SaveASistencia();
 
             }
         });
@@ -82,6 +98,90 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
 
 
     }
+    public Runnable AceptarBotonMensaje() {
+        return new Runnable() {
+            public void run() {
+                finish();
+            }
+        };
+    }
+
+    private void SaveASistencia() {
+
+        // Toast.makeText(this, "Validando usuario en línea..", Toast.LENGTH_SHORT).show();
+        ProgressBarGenerico.LoadProgress(this);
+
+        LoginResponse  user = new LoginResponse();
+
+
+        String fechaHoy = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+
+        String fechaHoraMarcacion = fechaHoy+ " " +hora + ":" + minutos + ":" + segundos;
+
+        AsistenciaDiariaMarcas request = new AsistenciaDiariaMarcas();
+        request.setEmpleado(1);
+        request.setTipoMarcacion(FuncionesPrincipales.getTipoMarcacion(CboTipoAsistencia.getText().toString()));
+        request.setLugarMarcacion("Juan de arona 728");
+        request.setLatitud(-12121212.0);
+        request.setLongitud(-12121212.0);
+        request.setEstado("A");
+        request.setUsuarioCreacion("NICKPASCO");
+        request.setIpCreacion("192.168.1.1.");
+        request.setFechaMarcacion(fechaHoraMarcacion);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(request);
+
+        Call<AsistenciaDiariaMarcas> call = usuarioService.SendAsistencia(request);
+        call.enqueue(new Callback<AsistenciaDiariaMarcas>() {
+            @Override
+            public void onResponse(Call<AsistenciaDiariaMarcas> call, Response<AsistenciaDiariaMarcas> response) {
+                if (response.isSuccessful()) {
+                    ProgressBarGenerico.HideProgreess();
+
+                    if (response.body().getLstErrores().size() == 0) {
+
+                        //MensajesGenericos.SHowMensajesGenericos("Success", "¡Éxito!", "La asistencia se registró correctamente..", AsistenciaActivity.this);
+                        MensajesGenericos.SHowMensajesGenericosConAccion("Success", "¡Éxito!", "La asistencia se registró correctamente..", AsistenciaActivity.this, AceptarBotonMensaje());
+
+                    } else {
+
+                        ModelError error  = response.body().getLstErrores().get(0);
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", error.getMensajeError(), AsistenciaActivity.this);
+
+                    }
+
+
+                }else{
+                    ProgressBarGenerico.HideProgreess();
+
+                    if(response.code()==404){
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 404", AsistenciaActivity.this);
+
+                    }
+
+                    if(response.code()==500){
+                        MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 500", AsistenciaActivity.this);
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AsistenciaDiariaMarcas> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+                MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", t.getMessage(), AsistenciaActivity.this);
+
+                ProgressBarGenerico.HideProgreess();
+
+            }
+        });
+    }
+
+
     public void doWork() {
         runOnUiThread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.N)
