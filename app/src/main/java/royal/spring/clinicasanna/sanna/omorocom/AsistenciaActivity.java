@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,15 +17,19 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +42,7 @@ import royal.spring.clinicasanna.sanna.omorocom.ui.ModelError;
 import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
 import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
 import royal.spring.clinicasanna.sanna.omorocom.utils.FuncionesPrincipales;
+import royal.spring.clinicasanna.sanna.omorocom.utils.GpsTracker;
 import royal.spring.clinicasanna.sanna.sanna.InicarLoginActivity;
 
 public class AsistenciaActivity extends AppCompatActivity implements Runnable {
@@ -48,7 +55,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
     ImageView BtnCheck ;
     UsuarioService usuarioService;
 
-    //private GpsTracker gpsTracker;
+    private GpsTracker gpsTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,19 +126,52 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
 
         String fechaHoraMarcacion = fechaHoy+ " " +hora + ":" + minutos + ":" + segundos;
 
+
         AsistenciaDiariaMarcas request = new AsistenciaDiariaMarcas();
+        gpsTracker = new GpsTracker(this);
+        if (gpsTracker.canGetLocation()) {
+
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            request.setLatitud(""+latitude);
+            request.setLongitud(""+longitude);
+
+
+            String cityName = "";
+            Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
+            List<Address> addresses;
+            try {
+                addresses = gcd.getFromLocation(gpsTracker.getLatitude(),
+                        gpsTracker.getLongitude(), 1);
+                if (addresses.size() > 0)
+                    System.out.println(addresses.get(0).getLocality());
+                cityName = addresses.get(0).getLocality();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(addresses);
+                Log.i("DATAAA_MAPA",json);
+
+                //Toast.makeText(AsistenciaActivity.this, cityName, Toast.LENGTH_SHORT).show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            request.setLugarMarcacion(cityName);
+        }
+
         request.setEmpleado(1);
         request.setTipoMarcacion(FuncionesPrincipales.getTipoMarcacion(CboTipoAsistencia.getText().toString()));
-        request.setLugarMarcacion("Juan de arona 728");
-        request.setLatitud(-12121212.0);
-        request.setLongitud(-12121212.0);
+        //request.setLugarMarcacion("Juan de arona 728");
         request.setEstado("A");
-        request.setUsuarioCreacion("NICKPASCO");
-        request.setIpCreacion("192.168.1.1.");
+        request.setUsuarioCreacion(APIUtils.Usuario);
+        //request.setIpCreacion("192.168.1.1");
         request.setFechaMarcacion(fechaHoraMarcacion);
 
         Gson gson = new Gson();
         String json = gson.toJson(request);
+
+        Log.i("JSONENVIO",json);
 
         Call<AsistenciaDiariaMarcas> call = usuarioService.SendAsistencia(request);
         call.enqueue(new Callback<AsistenciaDiariaMarcas>() {

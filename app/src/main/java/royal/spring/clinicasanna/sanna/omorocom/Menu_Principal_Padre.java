@@ -1,5 +1,7 @@
 package royal.spring.clinicasanna.sanna.omorocom;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -55,8 +57,8 @@ public class Menu_Principal_Padre extends AppCompatActivity {
         TextView TxtUsuario = (TextView) headerView.findViewById(R.id.TxtUserName);
         TextView TxtNombresNav = (TextView) headerView.findViewById(R.id.textView);
 
-        TxtUsuario.setText("Darkon27");
-        TxtNombresNav.setText("Jordan Mateo Pizarro");
+        TxtUsuario.setText(APIUtils.Usuario);
+        TxtNombresNav.setText(APIUtils.Nombnre);
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -87,6 +89,8 @@ public class Menu_Principal_Padre extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

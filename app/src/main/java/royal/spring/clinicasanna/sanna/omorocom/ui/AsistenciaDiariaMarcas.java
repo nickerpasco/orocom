@@ -10,8 +10,8 @@ public class AsistenciaDiariaMarcas {
     public String FechaMarcacion ;
     public String TipoMarcacion ;
     public String LugarMarcacion ;
-    public Double Latitud ;
-    public Double Longitud ;
+    public String Latitud ;
+    public String Longitud ;
     public String Estado ;
     public String UsuarioCreacion ;
     public String IpCreacion ;
@@ -68,19 +68,19 @@ public class AsistenciaDiariaMarcas {
         LugarMarcacion = lugarMarcacion;
     }
 
-    public Double getLatitud() {
+    public String getLatitud() {
         return Latitud;
     }
 
-    public void setLatitud(Double latitud) {
+    public void setLatitud(String latitud) {
         Latitud = latitud;
     }
 
-    public Double getLongitud() {
+    public String getLongitud() {
         return Longitud;
     }
 
-    public void setLongitud(Double longitud) {
+    public void setLongitud(String longitud) {
         Longitud = longitud;
     }
 
