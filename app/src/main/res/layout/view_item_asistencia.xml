@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview_bg"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="100dp"
+                android:background="@color/colorPrimary"></View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="261dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Jordan Mateo Pizarro nicker oscar pasco"
+                    android:textColor="@color/colorGray"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/gree_circle"></View>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="ASISTIÓ"
+                        android:id="@+id/txttipoasistencia"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text"
+                    android:layout_marginTop="3dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="Hoy : 5:40 pm"
+                        android:id="@+id/txtFecha"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginLeft="7dp"
+                        android:src="@drawable/placeholder" />
+
+                    <TextView
+                        android:id="@+id/txtLugarMarcacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Omorocom"
+                        android:textColor="@color/colorLightGray"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:text="into"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:text="job"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:text="family"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/roun_rect_lightgray"
+                        android:gravity="center"
+                        android:text="update"
+                        android:textColor="@color/colorGray"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

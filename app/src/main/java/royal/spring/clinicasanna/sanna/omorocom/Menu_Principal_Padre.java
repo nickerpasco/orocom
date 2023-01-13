@@ -4,28 +4,50 @@ import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import okhttp3.internal.Util;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import royal.spring.clinicasanna.R;
 import royal.spring.clinicasanna.databinding.ActivityMenuPrincipalPadreBinding;
+import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
+import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
+import royal.spring.clinicasanna.sanna.omorocom.utils.FuncionesPrincipales;
+import royal.spring.clinicasanna.sanna.sanna.Adaptadores.AsistenciaAdapter;
 import royal.spring.clinicasanna.sanna.sanna.SplashActivity;
+import royal.spring.clinicasanna.sanna.sanna.clases.Model_Asistencia;
+import royal.spring.clinicasanna.sanna.sanna.clases.Usuario;
 
 public class Menu_Principal_Padre extends AppCompatActivity {
 
@@ -39,6 +61,7 @@ public class Menu_Principal_Padre extends AppCompatActivity {
         binding = ActivityMenuPrincipalPadreBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(binding.appBarMenuPrincipalPadre.toolbar);
         binding.appBarMenuPrincipalPadre.fab.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +71,7 @@ public class Menu_Principal_Padre extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -57,8 +81,12 @@ public class Menu_Principal_Padre extends AppCompatActivity {
         TextView TxtUsuario = (TextView) headerView.findViewById(R.id.TxtUserName);
         TextView TxtNombresNav = (TextView) headerView.findViewById(R.id.textView);
 
+
+        String nombres = FuncionesPrincipales.parseMayuscula(FuncionesPrincipales.parseTrimMinuscula(APIUtils.Nombnre));
+
+
         TxtUsuario.setText(APIUtils.Usuario);
-        TxtNombresNav.setText(APIUtils.Nombnre);
+        TxtNombresNav.setText(nombres);
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -89,6 +117,7 @@ public class Menu_Principal_Padre extends AppCompatActivity {
 
 
     }
+
 
 
 

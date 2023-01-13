@@ -160,7 +160,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
             request.setLugarMarcacion(cityName);
         }
 
-        request.setEmpleado(1);
+        request.setEmpleado(APIUtils.Persona);
         request.setTipoMarcacion(FuncionesPrincipales.getTipoMarcacion(CboTipoAsistencia.getText().toString()));
         //request.setLugarMarcacion("Juan de arona 728");
         request.setEstado("A");

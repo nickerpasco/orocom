@@ -182,6 +182,8 @@ public class InicarLoginActivity extends AppCompatActivity {
 
                         APIUtils.Nombnre = response.body().getBusqueda().trim();
                         APIUtils.Usuario = response.body().getUsuario().trim();
+                        APIUtils.PrimerNombre = response.body().getPrimerNombre().trim();
+                        APIUtils.Persona = response.body().getPersona();
                         startActivity(new Intent(InicarLoginActivity.this, Menu_Principal_Padre.class));
 
 
