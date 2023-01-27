@@ -56,7 +56,10 @@ public class HomeFragment extends Fragment {
         Recycler = binding.recyclerAsistencia;
 
 
-        String nombres = FuncionesPrincipales.parseMayuscula(FuncionesPrincipales.parseTrimMinuscula(APIUtils.PrimerNombre));
+        LoginResponse data = FuncionesPrincipales.getDataLogin(getActivity());
+
+
+        String nombres = FuncionesPrincipales.parseMayuscula(FuncionesPrincipales.parseTrimMinuscula(data.getPrimerNombre()));
 
 
         textView.setText("Hola "+ nombres);
@@ -82,8 +85,15 @@ public class HomeFragment extends Fragment {
 
 
         Gson gson = new Gson();
-        usuario.setPersona(APIUtils.Persona);
+
+        LoginResponse data = FuncionesPrincipales.getDataLogin(getActivity());
+
+
+        usuario.setPersona(data.getPersona());
         String json = gson.toJson(usuario);
+
+
+
         Call<List<Model_Asistencia>> call = usuarioService.getAsistencia(usuario);
         call.enqueue(new Callback<List<Model_Asistencia>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)

@@ -160,6 +160,37 @@
                     </LinearLayout>
 
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_default_bold"
+                        android:includeFontPadding="false"
+                        android:text="Observación"
+                        android:textColor="@color/black"
+                        android:textSize="14.0sp" />
+
+                    <EditText
+
+                        android:id="@+id/TxtObservacion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10.0dip"
+
+                        android:background="@drawable/rectangle_silver_border"
+
+                        android:fontFamily="@font/default_font_regular"
+                        android:hint="Ingresar Comentarios"
+                        android:includeFontPadding="false"
+                        android:inputType="textCapWords"
+                        android:padding="11.7dp"
+                        android:textColor="@color/semi_gray"
+                        android:textColorHint="@color/semi_gray"
+                        android:textSize="15.0sp" />
+
+
 
                 </LinearLayout>
 

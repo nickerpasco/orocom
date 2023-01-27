@@ -5,13 +5,17 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +38,9 @@ import retrofit2.Response;
 import royal.spring.clinicasanna.R;
 import royal.spring.clinicasanna.sanna.omorocom.APIUtils;
 import royal.spring.clinicasanna.sanna.omorocom.Menu_Principal_Padre;
+import royal.spring.clinicasanna.sanna.omorocom.services_workers.InternetService;
+import royal.spring.clinicasanna.sanna.omorocom.services_workers.MyService;
+import royal.spring.clinicasanna.sanna.omorocom.services_workers.Restarter;
 import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
 import royal.spring.clinicasanna.sanna.omorocom.ui.MensajesGenericos;
 import royal.spring.clinicasanna.sanna.omorocom.ui.ModelError;
@@ -50,6 +57,10 @@ public class InicarLoginActivity extends AppCompatActivity {
     EditText editText,editText2;
 
     UsuarioService usuarioService;
+
+
+    Intent mServiceIntent;
+    private InternetService mYourService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +146,37 @@ public class InicarLoginActivity extends AppCompatActivity {
             }
         });
 
+
+        mYourService = new InternetService();
+        mServiceIntent = new Intent(this, mYourService.getClass());
+        if (!isMyServiceRunning(mYourService.getClass())) {
+            startService(mServiceIntent);
+        }
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        //stopService(mServiceIntent);
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, Restarter.class);
+        this.sendBroadcast(broadcastIntent);
+        super.onDestroy();
+    }
+
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("Service status", "Running");
+                return true;
+            }
+        }
+        Log.i("Service status", "Not running");
+        return false;
     }
 
 
@@ -157,6 +199,21 @@ public class InicarLoginActivity extends AppCompatActivity {
         };
     }
 
+
+    private void setSessions(LoginResponse responseUser) {
+
+        SharedPreferences preferences = getSharedPreferences( "PrefeM", Context.MODE_PRIVATE );
+        SharedPreferences.Editor prefsEditor = preferences.edit();
+        Gson gson = new Gson();
+        responseUser.setPlacaOriginalLogin(responseUser.getPlacaNumero());
+        responseUser.setPlacaNumero(responseUser.getUltimaPlaca());
+        responseUser.setRutaDespachoDescripcion(responseUser.getRutaDescripcion());
+        responseUser.setRutaDescripcion(responseUser.getRutaDespachoDescripcion());
+        String json = gson.toJson(responseUser);
+        prefsEditor.putString("LoginResponse", json);
+        prefsEditor.commit();
+    }
+
     private void Ingresar() {
 
        // Toast.makeText(this, "Validando usuario en línea..", Toast.LENGTH_SHORT).show();
@@ -164,7 +221,7 @@ public class InicarLoginActivity extends AppCompatActivity {
 
         String usuario = editText.getText().toString();
         String pass = editText2.getText().toString();
-       LoginResponse request = new LoginResponse();
+        LoginResponse request = new LoginResponse();
         request.setUsuario(usuario);
         request.setClave(pass);
 
@@ -180,10 +237,15 @@ public class InicarLoginActivity extends AppCompatActivity {
 
                     if (response.body().getLstErrores().size() == 0) {
 
+                        setSessions(response.body());
+
+                        /*
                         APIUtils.Nombnre = response.body().getBusqueda().trim();
                         APIUtils.Usuario = response.body().getUsuario().trim();
                         APIUtils.PrimerNombre = response.body().getPrimerNombre().trim();
                         APIUtils.Persona = response.body().getPersona();
+
+                         */
                         startActivity(new Intent(InicarLoginActivity.this, Menu_Principal_Padre.class));
 
 

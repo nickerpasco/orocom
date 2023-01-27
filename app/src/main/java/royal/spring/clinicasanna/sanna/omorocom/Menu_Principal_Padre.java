@@ -2,10 +2,14 @@ package royal.spring.clinicasanna.sanna.omorocom;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +44,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import royal.spring.clinicasanna.R;
 import royal.spring.clinicasanna.databinding.ActivityMenuPrincipalPadreBinding;
+import royal.spring.clinicasanna.sanna.omorocom.services_workers.InternetService;
+import royal.spring.clinicasanna.sanna.omorocom.services_workers.MyService;
 import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
 import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
 import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
@@ -53,6 +59,10 @@ public class Menu_Principal_Padre extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuPrincipalPadreBinding binding;
+
+    private final Context mContext = this;
+    private InternetService mService;
+    private boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,11 @@ public class Menu_Principal_Padre extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -81,12 +96,15 @@ public class Menu_Principal_Padre extends AppCompatActivity {
         TextView TxtUsuario = (TextView) headerView.findViewById(R.id.TxtUserName);
         TextView TxtNombresNav = (TextView) headerView.findViewById(R.id.textView);
 
+        LoginResponse data = FuncionesPrincipales.getDataLogin(this);
 
-        String nombres = FuncionesPrincipales.parseMayuscula(FuncionesPrincipales.parseTrimMinuscula(APIUtils.Nombnre));
+        String nombres = FuncionesPrincipales.parseMayuscula(FuncionesPrincipales.parseTrimMinuscula(data.getUsuario()));
 
 
-        TxtUsuario.setText(APIUtils.Usuario);
+        TxtUsuario.setText(data.getUsuario());
         TxtNombresNav.setText(nombres);
+
+
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -117,6 +135,19 @@ public class Menu_Principal_Padre extends AppCompatActivity {
 
 
     }
+
+    /*
+    @Override
+    protected void onStop() {
+        // Unbind from the service
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        }
+        super.onStop();
+    }
+
+     */
 
 
 

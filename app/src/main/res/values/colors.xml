@@ -9,6 +9,9 @@
     <color name="sanna">#649c33</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="ghost_whitev2">#F9F9FB</color>
+
+    <color name="semi_gray">#979797</color>
 
     <color name="green">#ff82bd41</color>
     <color name="blue.dark">#ff20386d</color>

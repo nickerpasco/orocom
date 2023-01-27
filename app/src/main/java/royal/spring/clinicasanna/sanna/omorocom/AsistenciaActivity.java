@@ -49,7 +49,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
 
     String hora, minutos, segundos;
     Thread login;
-    EditText TxtFechaHora ;
+    EditText TxtFechaHora,TxtObservaciones ;
     MaterialSpinner CboTipoAsistencia ;
     ImageView BtnRegresar ;
     ImageView BtnCheck ;
@@ -62,6 +62,7 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.activity_asistencia);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        TxtObservaciones = findViewById(R.id.TxtObservacion);
         TxtFechaHora = findViewById(R.id.TxtFechaHora);
         CboTipoAsistencia = findViewById(R.id.CboTipoAsistencia);
         BtnRegresar = findViewById(R.id.BtnRegresar);
@@ -160,13 +161,17 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
             request.setLugarMarcacion(cityName);
         }
 
-        request.setEmpleado(APIUtils.Persona);
+
+         LoginResponse data = FuncionesPrincipales.getDataLogin(this);
+
+        request.setEmpleado(data.getPersona());
         request.setTipoMarcacion(FuncionesPrincipales.getTipoMarcacion(CboTipoAsistencia.getText().toString()));
         //request.setLugarMarcacion("Juan de arona 728");
         request.setEstado("A");
-        request.setUsuarioCreacion(APIUtils.Usuario);
+        request.setUsuarioCreacion(data.getUsuario());
         //request.setIpCreacion("192.168.1.1");
         request.setFechaMarcacion(fechaHoraMarcacion);
+        request.setComentarios(TxtObservaciones.getText().toString());
 
         Gson gson = new Gson();
         String json = gson.toJson(request);

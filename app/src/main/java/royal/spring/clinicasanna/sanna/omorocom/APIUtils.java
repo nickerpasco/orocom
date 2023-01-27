@@ -11,10 +11,13 @@ public class APIUtils {
     public static final String PATH_SERVIDOR = "SPRING_RestServer_OlanoRenzo"; //
     public static final String IP_APP = "http://104.211.62.150";
 
+    /*
     public static   String Usuario = "";
     public static   String PrimerNombre = "";
     public static   int Persona = 0;
     public static   String Nombnre = "";
+
+     */
 
 
 

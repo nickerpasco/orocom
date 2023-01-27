@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void CargarFunciones() throws SQLException {
 
-
+/*
         List<FuncionesVitales> lis = (ArrayList<FuncionesVitales>) dbHelper.getAll(FuncionesVitales.class);
 
         listaPedidos = (ArrayList<FuncionesVitales>) lis;
@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new FuncionesAdapter(listaPedidos, this);
         RecyclerPedidos.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+ */
     }
 
     @Override

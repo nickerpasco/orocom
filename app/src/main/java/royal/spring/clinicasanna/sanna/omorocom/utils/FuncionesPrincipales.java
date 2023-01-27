@@ -1,14 +1,40 @@
 package royal.spring.clinicasanna.sanna.omorocom.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+
+import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
+
 public class FuncionesPrincipales {
+
+    public static boolean getValidarInternet(Context context) {
+        ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static LoginResponse getDataLogin(Context mcontext) {
+
+        Gson gson = new Gson();
+        SharedPreferences preferences = mcontext.getSharedPreferences("PrefeM", Context.MODE_PRIVATE);
+        String json = preferences.getString("LoginResponse", "");
+        LoginResponse ob = gson.fromJson(json, LoginResponse.class);
+
+        Log.i("ObjetoLogin", json);
+
+        return ob;
+
+    }
 
     public static String FormatDDMMYY(Date date) {
 

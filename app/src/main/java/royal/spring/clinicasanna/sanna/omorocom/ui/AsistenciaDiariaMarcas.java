@@ -8,6 +8,7 @@ public class AsistenciaDiariaMarcas {
     public int Empleado ;
     public int Secuencia ;
     public String FechaMarcacion ;
+    public String Comentarios ;
     public String TipoMarcacion ;
     public String LugarMarcacion ;
     public String Latitud ;
@@ -30,6 +31,15 @@ public class AsistenciaDiariaMarcas {
 
     public int getEmpleado() {
         return Empleado;
+    }
+
+
+    public String getComentarios() {
+        return Comentarios;
+    }
+
+    public void setComentarios(String comentarios) {
+        Comentarios = comentarios;
     }
 
     public void setEmpleado(int empleado) {
