@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +44,7 @@ import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
 import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
 import royal.spring.clinicasanna.sanna.omorocom.utils.FuncionesPrincipales;
 import royal.spring.clinicasanna.sanna.omorocom.utils.GpsTracker;
+import royal.spring.clinicasanna.sanna.sanna.DBHelper;
 import royal.spring.clinicasanna.sanna.sanna.InicarLoginActivity;
 
 public class AsistenciaActivity extends AppCompatActivity implements Runnable {
@@ -123,8 +125,6 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
 
 
         String fechaHoy = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-
         String fechaHoraMarcacion = fechaHoy+ " " +hora + ":" + minutos + ":" + segundos;
 
 
@@ -177,6 +177,28 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
         String json = gson.toJson(request);
 
         Log.i("JSONENVIO",json);
+
+        boolean validaInternet = FuncionesPrincipales.getValidarInternet(this);
+        if(validaInternet==false){
+
+
+            DBHelper dbHelper;
+            dbHelper = new DBHelper(this);
+
+            try {
+
+                request.setFlagOffline(true);
+                dbHelper.create(request);
+                ProgressBarGenerico.HideProgreess();
+                MensajesGenericos.SHowMensajesGenericosConAccion("Info", "¡Atención!", "Se tuvo un inconveniente con la conexión de internet, la asistencia se guardó de forma local, se volverá a intentar automáticamente cuando se conecte a intenet..", AsistenciaActivity.this, AceptarBotonMensaje());
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            return;
+        }
 
         Call<AsistenciaDiariaMarcas> call = usuarioService.SendAsistencia(request);
         call.enqueue(new Callback<AsistenciaDiariaMarcas>() {

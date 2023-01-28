@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,13 +60,14 @@ public class InicarLoginActivity extends AppCompatActivity {
     UsuarioService usuarioService;
 
 
-    Intent mServiceIntent;
-    private InternetService mYourService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicar_login);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         button = (Button)findViewById(R.id.button);
         TvRegitro = findViewById(R.id.textView3);
@@ -147,37 +149,11 @@ public class InicarLoginActivity extends AppCompatActivity {
         });
 
 
-        mYourService = new InternetService();
-        mServiceIntent = new Intent(this, mYourService.getClass());
-        if (!isMyServiceRunning(mYourService.getClass())) {
-            startService(mServiceIntent);
-        }
+
 
 
     }
 
-    @Override
-    protected void onDestroy() {
-        //stopService(mServiceIntent);
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("restartservice");
-        broadcastIntent.setClass(this, Restarter.class);
-        this.sendBroadcast(broadcastIntent);
-        super.onDestroy();
-    }
-
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("Service status", "Running");
-                return true;
-            }
-        }
-        Log.i("Service status", "Not running");
-        return false;
-    }
 
 
 

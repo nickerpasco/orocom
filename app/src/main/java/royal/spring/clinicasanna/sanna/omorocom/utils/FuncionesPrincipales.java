@@ -23,6 +23,8 @@ public class FuncionesPrincipales {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
+
+
     public static LoginResponse getDataLogin(Context mcontext) {
 
         Gson gson = new Gson();

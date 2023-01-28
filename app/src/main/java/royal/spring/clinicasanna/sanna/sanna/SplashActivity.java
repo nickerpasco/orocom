@@ -38,6 +38,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
         ImageView ImgSplash = (ImageView)findViewById(R.id.ImgSplash);
@@ -51,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 LoginResponse data = FuncionesPrincipales.getDataLogin(SplashActivity.this);
-                Log.i("TEST",""+data.getUsuario());
+
                 String usuario = "";
 
                 if(data ==null){

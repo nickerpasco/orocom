@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import royal.spring.clinicasanna.sanna.omorocom.ui.AsistenciaDiariaMarcas;
 import royal.spring.clinicasanna.sanna.sanna.clases.FuncionesVitales;
 import royal.spring.clinicasanna.sanna.sanna.clases.Paciente;
 import royal.spring.clinicasanna.sanna.sanna.clases.Usuario;
@@ -38,6 +40,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(cs, Usuario.class);
             TableUtils.createTableIfNotExists(cs, FuncionesVitales.class);
             TableUtils.createTableIfNotExists(cs, Paciente.class);
+            TableUtils.createTableIfNotExists(cs, AsistenciaDiariaMarcas.class);
             //TableUtils.createTableIfNotExists(cs, FuncionesVitales.class);
 
 
@@ -48,6 +51,28 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource cs, int oldVersion, int newVersion) {
+
+    }
+
+    public <T> void deleteAsitencia(Class<T> clazz, int IdAsistencia) throws SQLException {
+        Dao<T, ?> dao = getDao(clazz);
+
+
+            DeleteBuilder<AsistenciaDiariaMarcas, Integer> deleteBuilder = (DeleteBuilder<AsistenciaDiariaMarcas, Integer>) dao.deleteBuilder();
+            deleteBuilder.where().eq("IdAsistencia", IdAsistencia);
+            deleteBuilder.delete();
+
+
+
+    }
+
+    public <T> long getCountTable(Class<T> clazz,String nameClass) throws SQLException {
+        Dao<T, ?> dao = getDao(clazz);
+        GenericRawResults<String[]> rawResults = dao.queryRaw("select count(*) from "+nameClass);
+        List<String[]> results = rawResults.getResults();
+        String[] resultArray = results.get(0);
+
+        return Long.parseLong(resultArray[0]);
 
     }
 

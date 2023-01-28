@@ -67,6 +67,80 @@ public class MensajesGenericos {
     public static String TiempoCalculado ="";
     public static String TipoTiempo ="";
 
+
+
+    public static void ShowMessageConfirmDosBotones(String TituloMensaje, String MensajeCUerpo, final Activity activity, Runnable bProcedure,Runnable aProcedure,String TextButtonSi,String TextButtonNo) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+        ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(activity).inflate(R.layout.item_question, viewGroup, false);
+
+        ans_true = aProcedure;
+        ans_false= bProcedure;
+
+
+        Button BtnAceptar = (Button) dialogView.findViewById(R.id.BtnAceptar);
+        ImageView BtnCerrar = (ImageView) dialogView.findViewById(R.id.BtnCerrar);
+        Button BtnNo = (Button) dialogView.findViewById(R.id.BtnNO);
+        TextView TxtTitle = (TextView) dialogView.findViewById(R.id.TxtNameCliente);
+        TextView TxtMesaagee = (TextView) dialogView.findViewById(R.id.message);
+
+        TxtTitle.setText(TituloMensaje);
+        TxtMesaagee.setText(MensajeCUerpo);
+
+
+        BtnAceptar.setText(TextButtonSi);
+
+        if(TextButtonNo.equals("NO_OCULTAR_X")){
+            BtnNo.setText("NO");
+            BtnCerrar.setVisibility(View.INVISIBLE);
+        }else{
+            BtnNo.setText(TextButtonNo);
+        }
+
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setView(dialogView);
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.setCancelable(false);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+
+        BtnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ans_true.run();
+                dialog.dismiss();
+            }
+        });
+
+        BtnCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        BtnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ans_false.run();
+                dialog.dismiss();
+            }
+        });
+
+
+
+    }
+
     public static void SHowMensajesGenericosConAccion(String type, String titulo, String menssage, Context context,Runnable accionboton) {
 
         final Dialog dialog = new Dialog(context);

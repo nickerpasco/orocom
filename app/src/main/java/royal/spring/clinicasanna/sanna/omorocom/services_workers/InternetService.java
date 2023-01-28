@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -26,18 +28,45 @@ import androidx.core.app.NotificationManagerCompat;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import royal.spring.clinicasanna.R;
+import royal.spring.clinicasanna.sanna.omorocom.APIUtils;
+import royal.spring.clinicasanna.sanna.omorocom.AsistenciaActivity;
+import royal.spring.clinicasanna.sanna.omorocom.ui.AsistenciaDiariaMarcas;
+import royal.spring.clinicasanna.sanna.omorocom.ui.LoginResponse;
+import royal.spring.clinicasanna.sanna.omorocom.ui.MensajesGenericos;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ModelError;
+import royal.spring.clinicasanna.sanna.omorocom.ui.ProgressBarGenerico;
+import royal.spring.clinicasanna.sanna.omorocom.ui.UsuarioService;
 import royal.spring.clinicasanna.sanna.omorocom.utils.FuncionesPrincipales;
+import royal.spring.clinicasanna.sanna.omorocom.utils.GpsTracker;
+import royal.spring.clinicasanna.sanna.sanna.DBHelper;
 
 public class InternetService extends Service {
 
     public int counter=0;
     private Handler mHandler; // to display Toast message
+
+    DBHelper dbHelper;
+    UsuarioService usuarioService;
+
 
     public InternetService() {
     }
@@ -62,6 +91,8 @@ public class InternetService extends Service {
     }
 
 
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     private void startMyOwnForeground()
     {
@@ -84,6 +115,66 @@ public class InternetService extends Service {
         startForeground(2, notification);
     }
 
+
+    private void SaveASistencia(AsistenciaDiariaMarcas request,UsuarioService usuarioService) {
+
+
+
+        Call<AsistenciaDiariaMarcas> call = usuarioService.SendAsistencia(request);
+        call.enqueue(new Callback<AsistenciaDiariaMarcas>() {
+            @Override
+            public void onResponse(Call<AsistenciaDiariaMarcas> call, Response<AsistenciaDiariaMarcas> response) {
+                if (response.isSuccessful()) {
+                    ProgressBarGenerico.HideProgreess();
+
+                    if (response.body().getLstErrores().size() == 0) {
+
+                        Toast.makeText(getApplicationContext(), "Se subió un registro a la base de datos", Toast.LENGTH_SHORT).show();
+
+                        try {
+                            dbHelper.deleteAsitencia(AsistenciaDiariaMarcas.class,request.getIdAsistencia());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+                        //MensajesGenericos.SHowMensajesGenericos("Success", "¡Éxito!", "La asistencia se registró correctamente..", AsistenciaActivity.this);
+                     //   MensajesGenericos.SHowMensajesGenericosConAccion("Success", "¡Éxito!", "La asistencia se registró correctamente..", AsistenciaActivity.this, AceptarBotonMensaje());
+
+                    } else {
+
+                      //  ModelError error  = response.body().getLstErrores().get(0);
+                      //  MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", error.getMensajeError(), AsistenciaActivity.this);
+
+                    }
+
+
+                }else{
+                   // ProgressBarGenerico.HideProgreess();
+
+                    if(response.code()==404){
+                        //MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 404", AsistenciaActivity.this);
+
+                    }
+
+                    if(response.code()==500){
+                      //  MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", "Verifique la configuración del servidor, Código 500", AsistenciaActivity.this);
+
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AsistenciaDiariaMarcas> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+             //   MensajesGenericos.SHowMensajesGenericos("Error", "¡Error!", t.getMessage(), AsistenciaActivity.this);
+
+               // ProgressBarGenerico.HideProgreess();
+
+            }
+        });
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -118,8 +209,36 @@ public class InternetService extends Service {
                 boolean validarInternet = FuncionesPrincipales.getValidarInternet(getApplicationContext());
                 if (validarInternet) {
 
-                    Log.i("ESTADO_SOCKET", "HAY INTERNET");
 
+                    dbHelper = new DBHelper(getApplicationContext());
+                    try {
+                        long valida = dbHelper.getCountTable(AsistenciaDiariaMarcas.class, "AsistenciaDiariaMarcas");
+
+                        if(valida>0){
+
+
+                            Log.i("valida_datos", "Cantidad Registros " + valida);
+
+                            Map<String, Object> params = new HashMap<>();
+                            params.put("FlagOffline", true);
+
+                            //params.put("FlagCobranza", "S");
+                            List<AsistenciaDiariaMarcas> lis = (ArrayList<AsistenciaDiariaMarcas>) dbHelper.query(AsistenciaDiariaMarcas.class, params);
+
+                            usuarioService = APIUtils.getUsuarioService();
+
+                            for (AsistenciaDiariaMarcas item : lis){
+
+                                SaveASistencia(item,usuarioService);
+
+                            }
+                        }
+
+
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
 
 
                 }else{
