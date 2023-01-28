@@ -3,10 +3,14 @@ package royal.spring.clinicasanna.sanna.omorocom;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,7 +90,12 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
             public void onClick(View v) {
                 Animation animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_tv);
                 BtnCheck.startAnimation(animFadein);
-                SaveASistencia();
+                //SaveASistencia();
+
+                GuardarAsistentenciaAync d = new GuardarAsistentenciaAync();
+                d.setContext(AsistenciaActivity.this);
+                d.execute();
+
 
             }
         });
@@ -116,10 +125,58 @@ public class AsistenciaActivity extends AppCompatActivity implements Runnable {
         };
     }
 
+
+    private class GuardarAsistentenciaAync extends AsyncTask<Void, Void, Void> {
+
+        private Context mContext;
+
+        void setContext(Activity context) {
+            mContext = context;
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+
+                    ProgressBarGenerico.LoadProgress(AsistenciaActivity.this);
+
+
+                }
+            });
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            runOnUiThread(new Runnable() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                public void run() {
+
+
+                       SaveASistencia();
+
+
+                }
+            });
+
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            ProgressBarGenerico.HideProgreess();
+
+        }
+    }
+
+
     private void SaveASistencia() {
 
         // Toast.makeText(this, "Validando usuario en línea..", Toast.LENGTH_SHORT).show();
-        ProgressBarGenerico.LoadProgress(this);
+
 
         LoginResponse  user = new LoginResponse();
 
